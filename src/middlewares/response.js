@@ -1,3 +1,5 @@
+const { getMessage } = require('../helpers/messages');
+
 const TYPE_JSON = 'application/json';
 const STATUS_CODE_OK = 200;
 const STATUS_CODE_BAD_REQUEST = 400;
@@ -9,7 +11,7 @@ const jsonOK = function(data, message, metadata) {
     const status = STATUS_CODE_OK;
 
     // data = (data) ? data : null
-    message = (message) ? message : 'Successful request!';
+    message = (message) ? message : getMessage('response.json_Ok');
     metadata = (metadata) ? metadata : {};
 
     this.status(STATUS_CODE_OK);
@@ -21,7 +23,7 @@ const jsonBadRequest = function(data, message, metadata) {
     const status = STATUS_CODE_BAD_REQUEST;
 
     // data = (data) ? data : null
-    message = (message) ? message : 'Bad request!';
+    message = (message) ? message : getMessage('response.json_Bad_Request');
     metadata = (metadata) ? metadata : {};
 
     this.status(STATUS_CODE_BAD_REQUEST);
@@ -33,7 +35,7 @@ const jsonUnauthorized = function(data, message, metadata) {
     const status = STATUS_CODE_UNAUTHORIZED;
 
     // data = (data) ? data : null
-    message = (message) ? message : 'Unauthorized request!';
+    message = (message) ? message : getMessage('response.json_Unauthorized');
     metadata = (metadata) ? metadata : {};
 
     this.status(STATUS_CODE_UNAUTHORIZED);
@@ -45,7 +47,7 @@ const jsonNotFound = function(data, message, metadata) {
     const status = STATUS_CODE_NOT_FOUND;
 
     // data = (data) ? data : null
-    message = (message) ? message : 'Not Found!';
+    message = (message) ? message : getMessage('response.json_Not_Found');
     metadata = (metadata) ? metadata : {};
 
     this.status(STATUS_CODE_NOT_FOUND);
@@ -57,7 +59,7 @@ const jsonServerError = function(data, message, metadata) {
     const status = STATUS_CODE_SERVER_ERROR;
 
     // data = (data) ? data : null
-    message = (message) ? message : 'Server Error!';
+    message = (message) ? message : getMessage('response.json_Server_Error');
     metadata = (metadata) ? metadata : {};
 
     this.status(STATUS_CODE_SERVER_ERROR);

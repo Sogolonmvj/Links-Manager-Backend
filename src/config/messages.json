@@ -1,0 +1,14 @@
+{
+    "response.json_Ok": "Successful request!",
+    "response.json_Bad_Request": "Bad request!",
+    "response.json_Unauthorized": "Unauthorized request!",
+    "response.json_Not_Found": "Not Found!",
+    "response.json_Server_Error": "Server Error!",
+    "account.signup.success": "Account created succesfully!",
+    "account.signup.email_exists": "Email already exists!",
+    "account.signup.email.string.empty": "Email field must be filled in!",
+    "account.signup.email.string.email": "Email not valid!",
+    "account.signup.password_confirmation.any.required": "Password confirmation is mandatory!",
+    "account.signup.password.string.empty": "Password field must be filled in!",
+    "account.signup.password.string.pattern.base": "Password must contain at least 6 characters being a mix of letters, numbers and special characters!"
+}
