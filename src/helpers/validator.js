@@ -1,4 +1,4 @@
-const { getMessage } = require('../messages');
+const { getMessage } = require('../helpers/messages');
 
 const getValidatorError = (error, messagePath) => {
     if(!error) return null;
@@ -18,7 +18,7 @@ const getValidatorError = (error, messagePath) => {
         errorMessages[key] = getMessage(path) || message;
     });
     
-    console.log(key, message);
+    // console.log(key, message);
     return errorMessages;
 };
 

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { Account } = require('../models');
 const { accountSignUp } = require('../validators/account');
 const { getMessage } = require('../helpers/validator');
+const { generateJwt, generateRefreshJwt } = require('../helpers/jwt');
 
 const router = express.Router();
 
@@ -25,7 +26,10 @@ router.get('/sign-up', accountSignUp, async (req, res) => {
     const newAccount = await Account.create({ email, password: hash });
     console.log(newAccount);
 
-    return res.jsonOK(newAccount, getMessage('account.signup.success'));
+    const token = generateJwt({id: newAccount.id})
+    const refreshToken = generateRefreshJwt({id: newAccount.id})
+
+    return res.jsonOK(newAccount, getMessage('account.signup.success'), { token, refreshToken });
 });
 
 module.exports = router;
