@@ -4,39 +4,37 @@ const { Link } = require('../models');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    const accountId = 1;
-    const links = await Link.findAll({ where: { accountId } });
+router.get('/', async (req, res) => {
+    const { accountId } = req;
+    const link = await Link.findAll({ where: { accountId } });
 
-
-
-    return res.jsonOK(links);
+    return res.jsonOK(link);
 });
 
 router.get('/:id', async (req, res) => {
-    const accountId = 1;
+    const { accountId } = req;
     const { id } = req.params;
     const link = await Link.findOne({ where: { id, accountId } });
+
     if (!link) return res.jsonNotFound();
     return res.jsonOK(link);
 })
 
 router.post('/', async (req, res) => {
-    const accountId = 1;
+    const { accountId, body } = req;
 
-    const { label, url, isSocial } = req.body;
+    const { label, url, isSocial } = body;
 
-    const image = 'https://google.com/image.jpg';
+    const image = 'https://images.unsplash.com/photo-1531001142232-7d7aac16a63e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80';
 
-    const link = await Link.create({ label, url, isSocial });
+    const link = await Link.create({ label, url, isSocial, image, accountId });
 
     return res.jsonOK(link);
 });
 
 router.put('/:id', async (req, res) => {
-    const accountId = 1;
-    const { id } = req.params();
-    const { body } = req;
+    const { accountId, body } = req;
+    const { id } = req.params;
     const fields = ['label', 'url', 'isSocial'];
 
     const link = await Link.findOne({ where: { id: id, accountId: accountId }});
@@ -56,7 +54,8 @@ router.put('/:id', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-    const accountId = 2;
+    const { accountId } = req;
+    const { id } = req.params;
     const link = await Link.findOne({ where: { id, accountId } });
     if (!link) return res.jsonNotFound();
     await link.destroy();
