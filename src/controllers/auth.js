@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { Account } = require('../models');
-const { accountSignUp } = require('../validators/account');
+const { accountSignUp, accountLogIn } = require('../validators/account');
 const { getMessage } = require('../helpers/validator');
 const { generateJwt, generateRefreshJwt } = require('../helpers/jwt');
 
@@ -9,11 +9,22 @@ const router = express.Router();
 
 const saltRounds = 10;
 
-router.get('/log-in', (req, res) => {
-    return res.jsonOK(null);
+router.post('/log-in', accountLogIn, async (req, res) => {
+
+    const { email, password } = req.body;
+    const account = await Account.findOne({ where: { email } });
+
+    //  validar a senha
+    const match = account ? bcrypt.compareSync(password, account.password) : null;
+    if (!match) return res.jsonBadRequest(null, getMessage('account.login.invalid'));
+
+    const token = generateJwt({ id: account.id });
+    const refreshToken = generateRefreshJwt({ id: account.id });
+    
+    return res.jsonOK(account, getMessage('account.login.success'), { token, refreshToken });
 });
 
-router.get('/sign-up', accountSignUp, async (req, res) => {
+router.post('/sign-up', accountSignUp, async (req, res) => {
 
     const { email, password } = req.body;
     
@@ -26,8 +37,8 @@ router.get('/sign-up', accountSignUp, async (req, res) => {
     const newAccount = await Account.create({ email, password: hash });
     console.log(newAccount);
 
-    const token = generateJwt({id: newAccount.id})
-    const refreshToken = generateRefreshJwt({id: newAccount.id})
+    const token = generateJwt({id: newAccount.id});
+    const refreshToken = generateRefreshJwt({id: newAccount.id});
 
     return res.jsonOK(newAccount, getMessage('account.signup.success'), { token, refreshToken });
 });

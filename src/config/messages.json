@@ -4,6 +4,14 @@
     "response.json_Unauthorized": "Unauthorized request!",
     "response.json_Not_Found": "Not Found!",
     "response.json_Server_Error": "Server Error!",
+
+    "account.login.success": "You have succesfully logged in!",
+    "account.login.invalid": "The email or password is incorrect!",
+    "account.login.email.string.empty": "Email field must be filled in!",
+    "account.login.email.string.email": "Email not valid!",
+    "account.login.password.string.empty": "Password field must be filled in!",
+    "account.login.password.string.pattern.base": "Password must contain at least 6 characters being a mix of letters, numbers and special characters!",
+
     "account.signup.success": "Account created succesfully!",
     "account.signup.email_exists": "Email already exists!",
     "account.signup.email.string.empty": "Email field must be filled in!",

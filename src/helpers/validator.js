@@ -13,7 +13,7 @@ const getValidatorError = (error, messagePath) => {
 
         const customMessage = getMessage(path);
         if(!customMessage){
-            console.log('customMessage not found for path:', path)
+            console.log('customMessage not found for path:', path);
         }
         errorMessages[key] = getMessage(path) || message;
     });
