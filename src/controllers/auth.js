@@ -19,7 +19,7 @@ router.post('/log-in', accountLogIn, async (req, res) => {
     if (!match) return res.jsonBadRequest(null, getMessage('account.login.invalid'));
 
     const token = generateJwt({ id: account.id });
-    const refreshToken = generateRefreshJwt({ id: account.id });
+    const refreshToken = generateRefreshJwt({ id: account.id, version: account.jwtVersion });
     
     return res.jsonOK(account, getMessage('account.login.success'), { token, refreshToken });
 });
@@ -38,7 +38,7 @@ router.post('/sign-up', accountSignUp, async (req, res) => {
     console.log(newAccount);
 
     const token = generateJwt({id: newAccount.id});
-    const refreshToken = generateRefreshJwt({id: newAccount.id});
+    const refreshToken = generateRefreshJwt({ id: newAccount.id, version: newAccount.jwtVersion });
 
     return res.jsonOK(newAccount, getMessage('account.signup.success'), { token, refreshToken });
 });
