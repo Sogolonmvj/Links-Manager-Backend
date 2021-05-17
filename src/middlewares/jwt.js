@@ -1,11 +1,8 @@
 const { verifyJwt, getTokenFromHeaders } = require('../helpers/jwt');
 
 const checkJwt = (req, res, next) => {
-    // /auth/log-in
-    // /auth/sign-up
 
     const { url: path } = req;
-    console.log(path);
 
     const excludedPaths = ['/auth/log-in', '/auth/sign-up', '/auth/refresh'];
     const isExcluded = !!excludedPaths.find((p) => p.startsWith(path));
@@ -23,8 +20,6 @@ const checkJwt = (req, res, next) => {
     } catch(error) {
         return res.jsonUnauthorized(null, 'Invalid token!');
     }
-
-    // console.log('decoded', new Date(decoded.exp * 1000));
 
 };
 

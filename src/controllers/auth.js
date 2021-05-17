@@ -14,7 +14,6 @@ router.post('/log-in', accountLogIn, async (req, res) => {
     const { email, password } = req.body;
     const account = await Account.findOne({ where: { email } });
 
-    //  validar a senha
     const match = account ? bcrypt.compareSync(password, account.password) : null;
     if (!match) return res.jsonBadRequest(null, getMessage('account.login.invalid'));
 
@@ -27,8 +26,6 @@ router.post('/log-in', accountLogIn, async (req, res) => {
 router.post('/sign-up', accountSignUp, async (req, res) => {
 
     const { email, password } = req.body;
-    
-    console.log({email, password});
     
     const account = await Account.findOne({ where: { email } });
     if (account)  return res.jsonBadRequest(null, getMessage('account.signup.email_exists'));
